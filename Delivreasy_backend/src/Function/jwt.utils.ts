@@ -34,7 +34,7 @@ export interface UserRequest extends Request {
   user?: { utilisateur_ID: number ,Utilisateur_Admin: boolean };
 }
 
-export function getUserId(req: UserRequest, res: Response, next: NextFunction)
+export function Connect(req: UserRequest, res: Response, next: NextFunction)
 {
   const token = req.cookies['token'];
   if(token != null) {
@@ -50,15 +50,15 @@ export function getUserId(req: UserRequest, res: Response, next: NextFunction)
   }
 }
 
-export function Connect(req: Request, res: Response, next: Function) {
-  const token =cookies.get("token")
-  if (!token) {
-    return ({ message: "Non autorisé" });
-  }
-  if(jwt.verify(token, tokensign)){
-    next();
-  }
-}
+// export function Connect(req: Request, res: Response, next: Function) {
+//   const token =cookies.get("token")
+//   if (!token) {
+//     return ({ message: "Non autorisé" });
+//   }
+//   if(jwt.verify(token, tokensign)){
+//     next();
+//   }
+// }
 
 export const adminConnect = (req: UserRequest, res: Response, next: NextFunction) => {
   if (req.user && req.user.Utilisateur_Admin) {

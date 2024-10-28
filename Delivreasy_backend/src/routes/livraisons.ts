@@ -1,7 +1,7 @@
 import express,{ Request, Response, Router } from "express";
 var cookieParser = require('cookie-parser')
 import { query } from "../db";
-import {getUserId} from "../Function/jwt.utils"
+import {Connect} from "../Function/jwt.utils"
 var cookies = require('js-cookie')
 // import cookies from "js-cookie"
 
