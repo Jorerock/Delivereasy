@@ -1,4 +1,5 @@
-export interface user {
-    utilisateur_ID: number;
-    Utilisateur_Admin: boolean;
+export interface User {
+  Utilisateur_ID: number,
+  Utilisateur_Admin: boolean
   }
+  

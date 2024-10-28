@@ -1,17 +1,17 @@
 import express,{ Request, Response, Router,NextFunction  } from "express";
 var cookieParser = require('cookie-parser')
 import { query } from "../db";
-import {AdminConnect, getUserId} from "../Function/jwt.utils"
+
+import {getUserId,adminConnect} from '../Function/jwt.utils';
+
 var cookies = require('js-cookie')
 import { Utilisateur } from "../models/Utilisateur"
-
-//import cookies from "js-cookie"
 
 const Adminrouteur = Router();
 Adminrouteur.use(express.json());
 Adminrouteur.use(cookieParser());
 
-Adminrouteur.get('/users/all', async (req: Request, res: Response) => {
+Adminrouteur.get('/users/all',getUserId,adminConnect, async (req: Request, res: Response) => {
   const token =cookies.get("token")
   try {
   const users = await query('SELECT Utilisateur_ID,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin,Utilisateur_Email FROM utilisateurs')
@@ -30,8 +30,6 @@ Adminrouteur.get('/users/:User_ID', async (req: Request, res: Response) => {
   console.error('Erreur :', error);
   res.status(500).json({ error: 'Erreur serveur' });
 }});
-
-
 
 Adminrouteur.delete('/users/:User_ID', async (req: Request, res: Response) => {
   const User_ID = parseInt(req.params.List_ID, 10);

@@ -1,42 +1,53 @@
 // Imports
 var jwt = require('jsonwebtoken');
-import {Response, Router ,NextFunction} from "express";
-import { user } from "../models/user"
-var cookieParser = require('cookie-parser')
-const tokensign = '!!11!!1!11*!!223!!44**55ABCFGzqer!cxhdr!tysc*vvxw5221';
+// import {Response, Router ,NextFunction} from "express";
+import { User } from "../models/user"
+import { Request, Response, NextFunction } from 'express';
+// var cookieParser = require('cookie-parser')
 var cookies = require('js-cookie')
 
+const tokensign = 'test';
 
 // const tokensign = process.env.JWT_SIGN_SECRET 
-export function generateTokenForUser(userData: user)
+export function generateTokenForUser(userData: User)
 {
-  return jwt.sign({
-    userId: userData.utilisateur_ID,
-    isAdmin: userData.Utilisateur_Admin
-  },
-  tokensign,
-  {
-    expiresIn: '1h'
-  })
+  const token =  jwt.sign(
+    { utilisateur_ID: userData.Utilisateur_ID, Utilisateur_Admin: userData.Utilisateur_Admin }, 
+    tokensign, 
+    { expiresIn: '1h' }
+  );
 
+  // const token= jwt.sign({
+  //   utilisateur_ID: userData.utilisateur_ID,
+  //   Utilisateur_Admin: userData.Utilisateur_Admin
+  // },
+  // tokensign,
+  // {
+  //   expiresIn: '1h'
+  // })
+
+  console.log('token',token)
+  return token
 }
 
-export function getUserId(Connexiontoken: any)
-{
-  var userId = -1;
-  var isAdmin = 0
-  var token = (Connexiontoken)
-  if(token != null) {
-    try {
+export interface UserRequest extends Request {
+  user?: { utilisateur_ID: number ,Utilisateur_Admin: boolean };
+}
 
-      var jwtToken = jwt.verify(token,tokensign as string) as any;
-      if(jwtToken != null)
-        userId = jwtToken.userId;
-        isAdmin= jwtToken.isAdmin
-    } catch(err) { }
+export function getUserId(req: UserRequest, res: Response, next: NextFunction)
+{
+  const token = req.cookies['token'];
+  if(token != null) {
+      const jwtToken = jwt.verify(token,tokensign) ;
+      req.user = {
+        utilisateur_ID  : jwtToken.utilisateur_ID,
+        Utilisateur_Admin : jwtToken.Utilisateur_Admin 
+      };
+
+        next()
+}else{
+    return res.status(401).json({ message: 'Pas de token présent dans le cookie' });
   }
-  console.log("user id jwt =",userId)
-  return [userId,isAdmin];
 }
 
 export function Connect(req: Request, res: Response, next: Function) {
@@ -49,21 +60,20 @@ export function Connect(req: Request, res: Response, next: Function) {
   }
 }
 
-
-interface UserRequest extends Request {
-  user?: { utilisateur_ID: number,Utilisateur_Admin: boolean };
-}
-
-export const UserConnect = (req: UserRequest, res: Response, next: NextFunction) => {
-  if (!req.user || !req.user.Utilisateur_Admin) {
-  res.status(500).json({ error: 'Erreur serveur' });
+export const adminConnect = (req: UserRequest, res: Response, next: NextFunction) => {
+  if (req.user && req.user.Utilisateur_Admin) {
+    next();
+  } else {
+    return res.status(403).json({ message: "admin connect marche pas" });
   }
-  next();
 };
 
-export const AdminConnect = (req: UserRequest, res: Response, next: NextFunction) => {
-  if (!req.user || !req.user.Utilisateur_Admin) {
-  res.status(500).json({ error: 'Erreur serveur' });
-  }
-  next();
-};
+// export const adminConnect = (req: UserRequest, res: Response, next: NextFunction) => {
+//   console.log('req.user.Utilisateur_Admin = ',req.user)
+//   if (req.user && req.user.Utilisateur_Admin) {
+//     next();
+//   } else {
+//     return res.status(403).json({ message: "admin connect marche pas" });
+//   }
+// };
+

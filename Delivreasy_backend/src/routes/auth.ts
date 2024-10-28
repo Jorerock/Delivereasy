@@ -2,8 +2,8 @@ import express,{ Request, Response, Router } from "express";
 import { query } from "../db";
 var bodyParser  = require('body-parser');
 import {generateTokenForUser} from "../Function/jwt.utils"
-var jwtutils =  "../utils/jwt.utils.js"
-import { user } from "../models/user"
+// import adminConnect from '../Function/jwt.utils';
+import { User } from "../models/user"
 const authRouter = Router();
 authRouter.use(express.json());
 authRouter.use(bodyParser.urlencoded({ extended: true }));
@@ -16,18 +16,21 @@ try {
 const  Utilisateur_Email :string = req.body.Utilisateur_Email;
 const  Utilisateur_Password:string  = req.body.Utilisateur_Password;
 
+
 console.log("mail "+Utilisateur_Email+"pass: "+Utilisateur_Password)
 
 const authentification = await query('SELECT Utilisateur_ID,Utilisateur_Admin FROM utilisateurs WHERE Utilisateur_Email  = ?',[Utilisateur_Email]);
-const user : user = JSON.parse(JSON.stringify(authentification))
+const user  = JSON.parse(JSON.stringify(authentification))
+const User : User = user[0]
 // console.log("user:"+user)
-const token = generateTokenForUser(user)
-res.cookie('token', token, {
-    httpOnly: false, 
-    secure: process.env.NODE_ENV === 'production', 
-    sameSite: 'strict', 
-    maxAge: 60 * 60 * 1000,
-  });
+console.log('user:',user.Utilisateur_ID)
+const token = generateTokenForUser(User)
+    res.cookie('token', token, {
+      httpOnly: false, 
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: 'strict', 
+      maxAge: 60 * 60 * 1000,
+    });
 res.status(201).json({
     'Utilisateur_ID': user,
     'token': token

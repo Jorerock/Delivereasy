@@ -12,7 +12,7 @@ livraisonsRouter.use(cookieParser());
 
 livraisonsRouter.post('/', async (req: Request, res: Response) => {
   const token =cookies.get("token")
-  let [Employe_id,isAdmin] = getUserId(token)
+  let Employe_id = 1
    console.log("Employe_id est : :"+Employe_id)
   // const Employe_id = tokendecrypted[0]
   // const isAdmin = tokendecrypted[1]
