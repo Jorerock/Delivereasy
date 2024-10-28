@@ -1,18 +1,19 @@
 import AboutPageComponent from '@/components/AboutPageComponent.vue';
 import LoginPageComponent from '../components/LoginPageComponent.vue';
-import TodosPageComponent from '@/components/TodosPageComponent.vue';
+// import TodosPageComponent from '@/components/TodosPageComponent.vue';
 import UserPageComponent from '@/components/UserPageComponent.vue';
+import WelcomePageComponent from '@/components/WelcomePageComponent.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      name:'todos',
-      path: '/todos',
-      component: TodosPageComponent
-    },
+    // {
+    //   name:'todos',
+    //   path: '/todos',
+    //   component: TodosPageComponent
+    // },
     {
       name: 'about',
       path:'/about',
@@ -24,12 +25,17 @@ const router = createRouter({
       component: LoginPageComponent
       // component: LoginPageComponent
     },
-
     {
       name: 'user',
       path:'/user',
       component: UserPageComponent
       // component: LoginPageComponent
+    },
+    {
+      name: 'Welcome',
+      path:'/Welcome',
+      component: WelcomePageComponent
+
     }
 
   ]

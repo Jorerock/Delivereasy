@@ -1,7 +1,5 @@
 <script setup lang="ts">
-//  import { ref } from 'vue';
 import * as cookie from './Cookie';
-//  import { User } from '../models/user';
 import LoginComponent from '../components/LoginComponent.vue';
 import { useRouter } from 'vue-router'
 
@@ -18,8 +16,8 @@ const router = useRouter()
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: event.email,
-            password: event.password,
+            Utilisateur_Email: event.email,
+            Utilisateur_Password: event.password,
             Credential:'include'
             // include cookies
           }),
@@ -28,9 +26,9 @@ const router = useRouter()
 
         if (response.ok) {
             console.log('donne recup =', data);
-            console.log('employe_id',data.Employe_ID.Employe_ID)
-            cookie.setCookie('Employe_id',data.Employe_ID.Employe_ID,1)
-            router.push({ path: "/todos" })
+            console.log('token',data.token)
+            cookie.setCookie('token',data.token,1)
+            router.push({ path: "/Welcome" })
             
         } else {
           console.error(response.status);
@@ -41,11 +39,8 @@ const router = useRouter()
 </script>
 
 <template>
-  <p>Hello World !</p>
-  <!-- <LoginComponent @Connect="onConnectInput($event)"/> -->
-  <!-- <LoginComponent @authentification="onConnectInput($event)"/> -->   
+  <h1>Hello World !</h1>
   <LoginComponent @authentification="onConnectInput($event)"/>
-
 </template>
   
 <style scoped></style>

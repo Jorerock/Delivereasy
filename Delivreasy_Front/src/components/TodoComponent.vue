@@ -3,18 +3,13 @@ import { ref } from 'vue';
 import { Todo } from '../models/todo';
 
 const props = defineProps<{ todo: Todo }>();
-
 const editMode = ref(false);
-
 const newValue = ref(props.todo.Todo_name);
-
 const emit = defineEmits(['onInput'])
-
 const onInput = (value: boolean) => {
     console.log('TodoComponent a détecté un changement ', value);
     emit('onInput', { ...props.todo, Todo_end: value })
 }
-
 const onConfirmText = () => {
     editMode.value = false;
     emit('onInput', { ...props.todo, Todo_name: newValue.value });

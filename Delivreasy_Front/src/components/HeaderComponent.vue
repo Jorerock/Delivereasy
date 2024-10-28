@@ -5,7 +5,7 @@
 <template>
     <nav>
         <a href="/login">login</a> |
-        <a href="/about">About</a> |
+        <a href="/Welcome">Welcome</a> |
         <a href="/Todos">Todos</a> |
         <a href="/user">Gestion utilisateur</a> |
         

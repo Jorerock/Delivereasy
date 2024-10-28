@@ -77,4 +77,6 @@ try{
   console.error('Erreur :', error);
   res.status(500).json({ error: error });
 }});
+
+
 export default Adminrouteur;
