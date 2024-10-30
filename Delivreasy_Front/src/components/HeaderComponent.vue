@@ -7,7 +7,7 @@
         <a href="/login">login</a> |
         <a href="/Welcome">Welcome</a> |
         <a href="/Todos">Todos</a> |
-        <a href="/user">Gestion utilisateur</a> |
+        <a href="/GestionsUser">Gestion utilisateur</a> |
         
         <a href="/non-existent-path">Broken Link</a>
     </nav>

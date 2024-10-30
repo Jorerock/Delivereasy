@@ -16,16 +16,6 @@ export function generateTokenForUser(userData: User)
     tokensign, 
     { expiresIn: '1h' }
   );
-
-  // const token= jwt.sign({
-  //   utilisateur_ID: userData.utilisateur_ID,
-  //   Utilisateur_Admin: userData.Utilisateur_Admin
-  // },
-  // tokensign,
-  // {
-  //   expiresIn: '1h'
-  // })
-
   console.log('token',token)
   return token
 }
@@ -50,16 +40,6 @@ export function Connect(req: UserRequest, res: Response, next: NextFunction)
   }
 }
 
-// export function Connect(req: Request, res: Response, next: Function) {
-//   const token =cookies.get("token")
-//   if (!token) {
-//     return ({ message: "Non autorisé" });
-//   }
-//   if(jwt.verify(token, tokensign)){
-//     next();
-//   }
-// }
-
 export const adminConnect = (req: UserRequest, res: Response, next: NextFunction) => {
   if (req.user && req.user.Utilisateur_Admin) {
     next();
@@ -68,12 +48,10 @@ export const adminConnect = (req: UserRequest, res: Response, next: NextFunction
   }
 };
 
-// export const adminConnect = (req: UserRequest, res: Response, next: NextFunction) => {
-//   console.log('req.user.Utilisateur_Admin = ',req.user)
-//   if (req.user && req.user.Utilisateur_Admin) {
-//     next();
-//   } else {
-//     return res.status(403).json({ message: "admin connect marche pas" });
-//   }
-// };
 
+
+export const GETuserID = (req: UserRequest) => {
+  if (req.user && req.user.utilisateur_ID) {
+    return(req.user.utilisateur_ID)
+  }
+};

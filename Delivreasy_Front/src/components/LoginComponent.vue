@@ -13,25 +13,14 @@ const form = ref({
 });
 
 const authentification = () => {
-  // eslint-disable-next-line no-debugger
-  // debugger;   
-  // console.log(form.value);
-  // console.log(form.value.email);
-    // console.log('TodoComponent a détecté un changement ', value);
     emit('authentification', { email : form.value.email , password : form.value.password })
-    
 }
-
 </script>
-
-
-
 <template>
   <div class="login">
     <h1>Connexion</h1>
     <!-- <form @submit.prevent="authentification($event)"> -->
       <form @submit.prevent="authentification()">
-
       <div class="form-group">
         <label for="email">Adresse e-mail</label>
         <input

@@ -6,5 +6,5 @@ export interface Utilisateur {
     Utilisateur_Password :string
     Utilisateur_Nom   : string
     Utilisateur_Prenom  : string
-    Utilisateur_Admin  : number
+    Utilisateur_Admin  : boolean
   }

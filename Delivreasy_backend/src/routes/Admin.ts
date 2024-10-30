@@ -1,7 +1,7 @@
 import express,{ Request, Response, Router,NextFunction  } from "express";
 var cookieParser = require('cookie-parser')
 import { query } from "../db";
-import {Connect,adminConnect} from '../Function/jwt.utils';
+import {Connect,adminConnect,GETuserID} from '../Function/jwt.utils';
 var cookies = require('js-cookie')
 import { Utilisateur } from "../models/Utilisateur"
 var bodyParser  = require('body-parser');
@@ -14,6 +14,7 @@ Adminrouteur.use(express.json());
 Adminrouteur.use(cookieParser());
 
 Adminrouteur.get('/users/all',Connect,adminConnect, async (req: Request, res: Response) => {
+  
   const token =cookies.get("token")
   try {
   const users = await query('SELECT Utilisateur_ID,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin,Utilisateur_Email FROM utilisateurs')
@@ -36,6 +37,7 @@ Adminrouteur.get('/users/:User_ID',Connect,adminConnect,async (req: Request, res
 // delete user
 Adminrouteur.delete('/users',Connect,adminConnect, async (req: Request, res: Response) => {
   const Utilisateur_ID        = req.body.Utilisateur_ID
+  console.log('req.body ',req.body)
 try {
   const Todos = await query(' DELETE FROM Utilisateurs WHERE Utilisateur_ID= ? ; ',[Utilisateur_ID]);
   res.status(201).json({
@@ -72,7 +74,7 @@ try{
   console.log('req.body ',req.body)
 
   const NewUser = await query('INSERT INTO utilisateurs (Utilisateur_Email, Utilisateur_Password,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin) VALUES (?,?,?,?,?)',[Utilisateur_Email,Utilisateur_Password,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin])
-   res.status(201).json({'Message': "Compte crée"});
+  res.status(201).json({'Message': "Compte crée"});
 } catch (error) {
   console.error('Erreur :', error);
   res.status(500).json({ error: error });

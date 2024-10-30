@@ -1,11 +1,12 @@
 import express,{ Request, Response, Router } from "express";
 import { query } from "../db";
-var bodyParser  = require('body-parser');
 import {generateTokenForUser} from "../Function/jwt.utils"
 // import adminConnect from '../Function/jwt.utils';
 import { User } from "../models/user"
 const authRouter = Router();
 authRouter.use(express.json());
+var bodyParser  = require('body-parser');
+
 authRouter.use(bodyParser.urlencoded({ extended: true }));
 authRouter.use(bodyParser.json());
 
