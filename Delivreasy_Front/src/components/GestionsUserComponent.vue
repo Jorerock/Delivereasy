@@ -4,31 +4,80 @@ import { Utilisateur } from '../models/Utilisateur';
 
 
 const props = defineProps<{ user: Utilisateur }>();
-const editMode = ref(false);
 const newValue = ref(props.user.Utilisateur_Email);
 const emit = defineEmits(['onInput'])
 const onInput = (value: boolean) => {
     console.log('TodoComponent a détecté un changement ', value);
-    emit('onInput', { ...props.user, Todo_end: value })
+    emit('onInput', { ...props.user, Utilisateur_Admin: value })
 }
-const onConfirmText = () => {
-    editMode.value = false;
-    emit('onInput', { ...props.user, Todo_name: newValue.value });
+
+const editModeEmail = ref(false);
+const onConfirmTextEmail = () => {
+  editModeEmail.value = false;
+    emit('onInput', { ...props.user, Utilisateur_Email: newValue.value });
 }
-const onCancelText = () => {
-    editMode.value = false;
+const onCancelTextEmail = () => {
+  editModeEmail.value = false;
     newValue.value = props.user.Utilisateur_Email;
 }
+
+const editModeUtilisateur_Nom = ref(false);
+const onConfirmTextUtilisateur_Nom = () => {
+  editModeEmail.value = false;
+    emit('onInput', { ...props.user, Utilisateur_Nom: newValue.value });
+}
+const onCancelTextUtilisateur_Nom = () => {
+  editModeEmail.value = false;
+    newValue.value = props.user.Utilisateur_Nom;
+}
+
+const editMode = ref(false);
+const onConfirmText= () => {
+  editModeEmail.value = false;
+    emit('onInput', { ...props.user, Utilisateur_Prenom: newValue.value });
+}
+const onCancelText= () => {
+  editModeEmail.value = false;
+    newValue.value = props.user.Utilisateur_Prenom;
+}
+
+
+
 </script>
 
 <template>
-
   <tbody>
     <tr>
       <td>   
+        <span v-if="!editModeEmail">
+            <span @click="editModeEmail = !editModeEmail">
+                {{ props.user.Utilisateur_Email }} 
+            </span>
+        </span>
+        <span v-else>
+            <!-- mode edition -->
+            <input type="text" v-model="newValue" />
+            <button @click="onConfirmTextEmail">Confirmer</button>
+            <button @click="onCancelTextEmail">Annuler</button>
+        </span>
+    </td>
+    <td>   
+        <span v-if="!editModeUtilisateur_Nom">
+            <span @click="editModeUtilisateur_Nom = !editModeUtilisateur_Nom">
+                {{ props.user.Utilisateur_Nom }} 
+            </span>
+        </span>
+        <span v-else>
+            <!-- mode edition -->
+            <input type="text" v-model="newValue" />
+            <button @click="onConfirmTextUtilisateur_Nom">Confirmer</button>
+            <button @click="onCancelTextUtilisateur_Nom">Annuler</button>
+        </span>
+    </td>
+    <td>   
         <span v-if="!editMode">
             <span @click="editMode = !editMode">
-                {{ props.user.Utilisateur_Email }} 
+                {{ props.user.Utilisateur_Prenom }} 
             </span>
         </span>
         <span v-else>
@@ -43,27 +92,7 @@ const onCancelText = () => {
         </td>
     </tr>
   </tbody>
-
-      <!-- <element :class="{ checked: props.user.Utilisateur_Admin }">
-    <span v-if="!editMode">
-        <span @click="editMode = !editMode">
-            {{ props.user.Utilisateur_Email }} |
-            {{ props.user.Utilisateur_Admin}}
-
-        </span>
-        <input type="checkbox" :checked="props.user.Utilisateur_Admin" @click="(event: any) => onInput(event.target?.checked)" />
-        <br />
-    </span>
-    <span v-else> -->
-        <!-- mode edition -->
-        <!-- <input type="text" v-model="newValue" />
-        <button @click="onConfirmText">Confirmer</button>
-        <button @click="onCancelText">Annuler</button>
-        <br />
-    </span>
-</element> -->
 </template>
-
 
 <style scoped>
 table {
@@ -79,12 +108,10 @@ caption {
   padding: 10px;
   font-weight: bold;
 }
-
 thead,
 tfoot {
   background-color: rgb(228 240 245);
 }
-
 th,
 td {
   border: 1px solid rgb(160 160 160);

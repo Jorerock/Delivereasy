@@ -5,15 +5,15 @@ import GestionsUserPageComponent from '@/components/GestionsUserPageComponent.vu
 import WelcomePageComponent from '@/components/WelcomePageComponent.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
+import GestionsClientPageComponent from '@/components/GestionsClientPageComponent.vue';
+import GestionsLivraisonPageComponent from '@/components/GestionsLivraisonPageComponent.vue';
+import GestionsTourneePageComponent from '@/components/GestionsTourneePageComponent.vue';
+import LivreurPageComponent from '@/components/LivreurPageComponent.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   name:'todos',
-    //   path: '/todos',
-    //   component: TodosPageComponent
-    // },
     {
       name: 'about',
       path:'/about',
@@ -32,12 +32,34 @@ const router = createRouter({
       // component: LoginPageComponent
     },
     {
+      name: 'GestionsClient',
+      path:'/GestionsClient',
+      component: GestionsClientPageComponent
+      // component: LoginPageComponent
+    },
+    {
+      name: 'GestionsLivraison',
+      path:'/GestionsLivraison',
+      component: GestionsLivraisonPageComponent
+      // component: LoginPageComponent
+    },
+    {
+      name: 'GestionsTournee',
+      path:'/GestionsTournee',
+      component: GestionsTourneePageComponent
+      // component: LoginPageComponent
+    },
+    {
+      name: 'MesLivraisons',
+      path:'/MesLivraisons',
+      component: LivreurPageComponent
+      // component: LoginPageComponent
+    },
+    {
       name: 'Welcome',
       path:'/Welcome',
       component: WelcomePageComponent
-
     }
-
   ]
 });
 

@@ -4,7 +4,6 @@ import UserComponent from './GestionsUserComponent.vue';
 import { Utilisateur } from '../models/Utilisateur';
 import * as cookie from './Cookie';
 
-
 const user :Utilisateur =  {Utilisateur_Email:'' ,Utilisateur_Password: '', Utilisateur_ID:1 ,Utilisateur_Nom:'',Utilisateur_Prenom:'',Utilisateur_Admin:false};
 
 const monTableau = ref<any[]>([]);
@@ -29,7 +28,11 @@ const onUserInput = async (newUserValue: Utilisateur, index: number) => {
   monTableau.value[index] = newUserValue;
   await fetch(`http://localhost:3000/admin/users`, {
     method: 'PUT',
+    credentials: 'include',
     headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -85,7 +88,7 @@ const createUser = async () => {
    debugger;
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", },
     body: JSON.stringify({
             Utilisateur_Email: user.Utilisateur_Email,
             Utilisateur_Password: user.Utilisateur_Password,
@@ -105,23 +108,19 @@ const createUser = async () => {
     console.log('User Ajoute');
   }
 };
-
 </script>
 
 <template>
-  <h1>Hello World !</h1>
-  <span v-if="monTableau.length % 2 === 0">Mon tableau est
-  pair</span>
-  <span v-else>Mon tableau est impair</span>
-  <br/>
-  <!-- <UserComponent v-for="(element,index) in monTableau" :User="element" v-bind:key="index"/> -->
-  <table>
+  <h1>Utilisateur :</h1>
+  <!-- <table> -->
     <thead>
-      <tr>
+      <!-- <tr>
         <th scope="col">Utilisateur_Email</th>
+        <th scope="col">Utilisateur_Nom</th>
+        <th scope="col">Utilisateur_Prenom</th>
         <th scope="col">Utilisateur_Admin</th>
-        <!-- <th scope="col">Age</th> -->
-      </tr>
+
+      </tr> -->
     </thead>
     <div class="users" v-for="(element, index) in monTableau" :key="element.List_ID">
     <UserComponent :user="element" @onInput="onUserInput($event, index)" />
@@ -129,10 +128,8 @@ const createUser = async () => {
     <!-- <UserComponent :User="element" @onInput="onUserInput($event, index)" /> -->
     <button class="button button1" @click="deleteUser(element.Utilisateur_ID , index)">Supprimer</button>
     </div>
-  </table>
+  <!-- </table> -->
 
-
-  
   <div class="container">
     <form @submit.prevent="createUser">
       <input v-model="user.Utilisateur_Email" type="email" placeholder="Utilisateur_Email"  required />
@@ -140,7 +137,7 @@ const createUser = async () => {
       <input v-model="user.Utilisateur_Nom" type="text" placeholder="Utilisateur_Nom" required />
       <input v-model="user.Utilisateur_Prenom" type="text" placeholder="Utilisateur_Prenom" required />
       <input v-model="user.Utilisateur_Admin" type="checkbox" placeholder="Utilisateur_Admin" />
-      <button type="submit">Login</button>
+      <button type="submit">Nouvel Utilisateur</button>
     </form>
   </div>
 </template>
@@ -186,6 +183,7 @@ tfoot th {
 tfoot td {
   font-weight: bold;
 }
+
 
 
 </style>

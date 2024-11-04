@@ -24,4 +24,19 @@
 .todos{
 display: flex;
 flex: 1;
+
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+
+  @media only screen and (max-width: 600px) {
+  body {
+    background-color: rgb(16, 167, 218);
+  }
+}
+
 }

@@ -56,7 +56,8 @@ Adminrouteur.put('/users',Connect,adminConnect, async (req: Request, res: Respon
   const Utilisateur_Prenom    = req.body.Utilisateur_Prenom
   const Utilisateur_Admin     = req.body.Utilisateur_Admin
 try{
-  const Todos = await query('UPDATE utilisateurs SET Utilisateur_Email = ?,Utilisateur_Password = ?, Utilisateur_Nom = ? ,Utilisateur_Prenom= ? ,Utilisateur_Admin = ?,  WHERE Utilisateur_ID = ?',[Utilisateur_Email,Utilisateur_Password,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin,Utilisateur_ID]);
+  console.log("body",req.body)
+  const Todos = await query('UPDATE utilisateurs SET Utilisateur_Email = ?  WHERE Utilisateur_ID = ?',[Utilisateur_Email,Utilisateur_ID]);
   res.status(201).json({'Utilisateur_ID': "User : "+Utilisateur_ID+" is update"});
 } catch (error) {
   console.error('Erreur :', error);

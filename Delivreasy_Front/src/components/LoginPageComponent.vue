@@ -3,6 +3,10 @@ import * as cookie from './Cookie';
 import LoginComponent from '../components/LoginComponent.vue';
 import { useRouter } from 'vue-router'
 
+function delete_cookie(name : string) {
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 const router = useRouter()
   
  const onConnectInput = async (event :{email: string  ,password : string  }) => {
@@ -36,11 +40,43 @@ const router = useRouter()
         }
 };
 
+
+
+const onDisconnectInput = async () => {
+  //   // eslint-disable-next-line no-debugger
+  // debugger;
+  console.log('la tentative de connexion est envoyée au serveur');
+
+  const response = await fetch('http://localhost:3000/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+          }),
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+            router.push({ path: "/login" })
+            delete_cookie('token')
+        } else {
+          console.error(response.status);
+          console.log('Erreur creation pour cause de '+ response.status);
+        }
+};
+
+
 </script>
 
 <template>
   <h1>Hello World !</h1>
+  <div class="livraisons" v-if="!cookie.getCookie('token')">
+  
   <LoginComponent @authentification="onConnectInput($event)"/>
+  </div>
+  <button class="button button1" @click="onDisconnectInput()">Deconnexion</button>
+
 </template>
   
 <style scoped></style>

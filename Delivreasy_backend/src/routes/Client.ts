@@ -16,6 +16,7 @@ Clientrouteur.use(cookieParser());
 Clientrouteur.get('/all',Connect,adminConnect, async (req: Request, res: Response) => {
   try {
   const clients = await query('SELECT * FROM clients')
+  // console.log("Request All Client: " , clients)
 
   res.status(201).json(clients);
   } catch (error) {
@@ -47,7 +48,7 @@ res.status(500).json({ error: 'Erreur serveur'});
 }});
 
 // update un user
-Clientrouteur.put('/',Connect,adminConnect, async (req: Request, res: Response) => {
+Clientrouteur.put('/', async (req: Request, res: Response) => {
   const Client_ID_Client         = req.body.Client_ID_Client 
   const Client_Email     = req.body.Client_Email
   const Client_AdresseFacturation  = req.body.Client_AdresseFacturation
@@ -55,6 +56,7 @@ Clientrouteur.put('/',Connect,adminConnect, async (req: Request, res: Response) 
   const Client_nom    = req.body.Client_nom
 
 try{
+  console.log("body :",req.body)
   const updateClient = await query('UPDATE clients SET Client_Email = ?,Client_AdresseFacturation = ?, Utilisateur_Prenom= ? ,Utilisateur_Nom = ?,  WHERE Utilisateur_ID = ?',[Client_Email,Client_AdresseFacturation,Client_Prenom,Client_nom,Client_ID_Client]);
   res.status(201).json({'Utilisateur_ID': "User : "+Client_ID_Client+" is update"});
 } catch (error) {
@@ -69,15 +71,12 @@ try{
     const Client_AdresseFacturation  = req.body.Client_AdresseFacturation
     const Client_nom    = req.body.Client_nom
     const Client_Prenom        = req.body.Client_Prenom
-
   console.log('req.body ',req.body)
-
   const NewClient = await query('INSERT INTO clients (Utilisateur_Email, Client_AdresseFacturation,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin) VALUES (?,?,?,?)',[Client_Email,Client_AdresseFacturation,Client_nom,Client_Prenom])
   res.status(201).json({'Message': "Compte client crée"});
 } catch (error) {
   console.error('Erreur :', error);
   res.status(500).json({ error: error });
 }});
-
 
 export default Clientrouteur;

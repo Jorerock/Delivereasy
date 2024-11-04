@@ -24,7 +24,6 @@ const authentification = await query('SELECT Utilisateur_ID,Utilisateur_Admin FR
 const user  = JSON.parse(JSON.stringify(authentification))
 const User : User = user[0]
 // console.log("user:"+user)
-console.log('user:',user.Utilisateur_ID)
 const token = generateTokenForUser(User)
     res.cookie('token', token, {
       httpOnly: false, 
@@ -37,13 +36,11 @@ res.status(201).json({
     'token': token
 });
 
-
 } catch (error) {
 console.error('Erreur :', error);
  res.status(500).json({ error: 'Erreur serveur' });
 }
 });
-
 
 authRouter.get("/logout", (req, res) => {
 	res.clearCookie("jwtToken");

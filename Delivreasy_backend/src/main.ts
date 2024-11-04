@@ -9,6 +9,7 @@ import Commandesrouteur from "./routes/Commandes";
 import livraisonsRouter from "./routes/livraisons";
 import objetsrouteur from "./routes/Objet";
 import Tourneesrouteur from "./routes/Tournee";
+import userrouteur from "./routes/users";
 
 
 
@@ -35,9 +36,8 @@ server.use('/Commande',Commandesrouteur);
 server.use('/livraisons',livraisonsRouter);
 server.use('/objet',objetsrouteur);
 server.use('/tournee',Tourneesrouteur);
+server.use('/Livreur',userrouteur);
 
-
-objetsrouteur
 
 const sql = `SELECT 1 + 1 AS test`;
 query(sql).then(

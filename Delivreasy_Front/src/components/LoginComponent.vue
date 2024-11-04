@@ -43,7 +43,7 @@ const authentification = () => {
         />
       </div>
 
-      <button type="submit" class="btn">Se connecter</button>
+      <button type="submit" class="button button1">Se connecter</button>
 
       <!-- <p v-if="errorMessage" class="error">{{ errorMessage }}</p> -->
     </form>
