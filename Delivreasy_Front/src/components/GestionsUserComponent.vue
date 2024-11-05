@@ -4,40 +4,43 @@ import { Utilisateur } from '../models/Utilisateur';
 
 
 const props = defineProps<{ user: Utilisateur }>();
-const newValue = ref(props.user.Utilisateur_Email);
 const emit = defineEmits(['onInput'])
 const onInput = (value: boolean) => {
     console.log('TodoComponent a détecté un changement ', value);
     emit('onInput', { ...props.user, Utilisateur_Admin: value })
 }
 
+
+const newValueEmail = ref(props.user.Utilisateur_Email);
 const editModeEmail = ref(false);
 const onConfirmTextEmail = () => {
   editModeEmail.value = false;
-    emit('onInput', { ...props.user, Utilisateur_Email: newValue.value });
+    emit('onInput', { ...props.user, Utilisateur_Email: newValueEmail.value });
 }
 const onCancelTextEmail = () => {
   editModeEmail.value = false;
-    newValue.value = props.user.Utilisateur_Email;
+    newValueEmail.value = props.user.Utilisateur_Email;
 }
 
+const newValueUtilisateur_Nom= ref(props.user.Utilisateur_Nom);
 const editModeUtilisateur_Nom = ref(false);
 const onConfirmTextUtilisateur_Nom = () => {
-  editModeEmail.value = false;
-    emit('onInput', { ...props.user, Utilisateur_Nom: newValue.value });
+  editModeUtilisateur_Nom.value = false;
+    emit('onInput', { ...props.user, Utilisateur_Nom: newValueUtilisateur_Nom.value });
 }
 const onCancelTextUtilisateur_Nom = () => {
-  editModeEmail.value = false;
-    newValue.value = props.user.Utilisateur_Nom;
+  editModeUtilisateur_Nom.value = false;
+    newValueUtilisateur_Nom.value = props.user.Utilisateur_Nom;
 }
 
+const newValue= ref(props.user.Utilisateur_Prenom);
 const editMode = ref(false);
 const onConfirmText= () => {
-  editModeEmail.value = false;
+  editMode.value = false;
     emit('onInput', { ...props.user, Utilisateur_Prenom: newValue.value });
 }
 const onCancelText= () => {
-  editModeEmail.value = false;
+  editMode.value = false;
     newValue.value = props.user.Utilisateur_Prenom;
 }
 
@@ -46,7 +49,7 @@ const onCancelText= () => {
 </script>
 
 <template>
-  <tbody>
+
     <tr>
       <td>   
         <span v-if="!editModeEmail">
@@ -56,7 +59,7 @@ const onCancelText= () => {
         </span>
         <span v-else>
             <!-- mode edition -->
-            <input type="text" v-model="newValue" />
+            <input type="text" v-model="newValueEmail" />
             <button @click="onConfirmTextEmail">Confirmer</button>
             <button @click="onCancelTextEmail">Annuler</button>
         </span>
@@ -69,7 +72,7 @@ const onCancelText= () => {
         </span>
         <span v-else>
             <!-- mode edition -->
-            <input type="text" v-model="newValue" />
+            <input type="text" v-model="newValueUtilisateur_Nom" />
             <button @click="onConfirmTextUtilisateur_Nom">Confirmer</button>
             <button @click="onCancelTextUtilisateur_Nom">Annuler</button>
         </span>
@@ -91,7 +94,7 @@ const onCancelText= () => {
             <input type="checkbox" :checked="props.user.Utilisateur_Admin" @click="(event: any) => onInput(event.target?.checked)" />
         </td>
     </tr>
-  </tbody>
+ 
 </template>
 
 <style scoped>

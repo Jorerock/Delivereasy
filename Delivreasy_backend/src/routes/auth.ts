@@ -29,7 +29,6 @@ const token = generateTokenForUser(User)
       httpOnly: false, 
       secure: process.env.NODE_ENV === 'production', 
       sameSite: 'strict', 
-      maxAge: 60 * 60 * 1000,
     });
 res.status(201).json({
     'Utilisateur_ID': user,

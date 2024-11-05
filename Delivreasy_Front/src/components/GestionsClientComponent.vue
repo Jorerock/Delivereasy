@@ -4,20 +4,38 @@ import { Client } from '../models/client';
 
 
 const props = defineProps<{ cli: Client }>();
-const editMode = ref(false);
-const newValue = ref(props.cli.Client_Email);
+
 const emit = defineEmits(['onInput'])
 const onInput = (value: boolean) => {
     console.log('TodoComponent a détecté un changement ', value);
     emit('onInput', { ...props.cli, Todo_end: value })
 }
-const onConfirmText = () => {
-    editMode.value = false;
-    emit('onInput', { ...props.cli, Todo_name: newValue.value });
+
+
+
+
+const editModeClient_Email = ref(false);
+const newValueClient_Email = ref(props.cli.Client_Email);
+const onConfirmTextClient_Email = () => {
+    editModeClient_Email.value = false;
+    emit('onInput', { ...props.cli, Todo_name: newValueClient_Email.value });
 }
-const onCancelText = () => {
-    editMode.value = false;
-    newValue.value = props.cli.Client_Email;
+const onCancelTextClient_Email = () => {
+    editModeClient_Email.value = false;
+    newValueClient_Email.value = props.cli.Client_Email;
+}
+
+
+
+const editModeClient_AdresseFacturation = ref(false);
+const newValueClient_AdresseFacturation = ref(props.cli.Client_AdresseFacturation);
+const onConfirmTextClient_AdresseFacturation = () => {
+  editModeClient_AdresseFacturation.value = false;
+    emit('onInput', { ...props.cli, Todo_name: newValueClient_AdresseFacturation.value });
+}
+const onCancelTextClient_AdresseFacturation = () => {
+  editModeClient_AdresseFacturation.value = false;
+    newValueClient_AdresseFacturation.value = props.cli.Client_Email;
 }
 </script>
 
@@ -26,29 +44,29 @@ const onCancelText = () => {
   <tbody>
     <tr>
       <td>   
-        <span v-if="!editMode">
-            <span @click="editMode = !editMode">
+        <span v-if="!editModeClient_Email">
+            <span @click="editModeClient_Email = !editModeClient_Email">
                 {{ props.cli.Client_Email }} 
             </span>
         </span>
         <span v-else>
             <!-- mode edition -->
-            <input type="text" v-model="newValue" />
-            <button @click="onConfirmText">Confirmer</button>
-            <button @click="onCancelText">Annuler</button>
+            <input type="text" v-model="newValueClient_Email" />
+            <button @click="onConfirmTextClient_Email">Confirmer</button>
+            <button @click="onCancelTextClient_Email">Annuler</button>
         </span>
     </td>
     <td>   
-        <span v-if="!editMode">
-            <span @click="editMode = !editMode">
+        <span v-if="!editModeClient_AdresseFacturation">
+            <span @click="editModeClient_AdresseFacturation = !editModeClient_AdresseFacturation">
                 {{ props.cli.Client_AdresseFacturation }} 
             </span>
         </span>
         <span v-else>
             <!-- mode edition -->
-            <input type="text" v-model="newValue" />
-            <button @click="onConfirmText">Confirmer</button>
-            <button @click="onCancelText">Annuler</button>
+            <input type="text" v-model="newValueClient_AdresseFacturation" />
+            <button @click="onConfirmTextClient_AdresseFacturation">Confirmer</button>
+            <button @click="onCancelTextClient_AdresseFacturation">Annuler</button>
         </span>
     </td>
 

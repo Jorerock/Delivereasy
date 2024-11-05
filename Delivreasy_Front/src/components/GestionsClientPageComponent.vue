@@ -62,32 +62,33 @@ const deleteclient = async (ID: number, index: number) => {
   console.log('client supprimé');
 };
 
-// ceate  client
+
+// create client
 const createclient = async () => {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  await fetch(`http://localhost:3000/client`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-            Client_Email: client.Client_Email,
+      Client_Email: client.Client_Email,
             Client_AdresseFacturation: client.Client_AdresseFacturation,
             Client_ID_Client: client.Client_ID_Client,
             Client_Nom: client.Client_Nom,
             Client_Prenom: client.Client_Prenom,
           }),
-  };
-  const response = await fetch(`http://localhost:3000/client`, requestOptions);
-  if (!response.ok) {
-    console.error(response.status);
-    console.log('Erreur creation pour cause de '+ response.status);
-  } else {
-    ClientTableau.value.push( await response.json());
-    console.log('client Ajoute');
-  }
+  });
+  console.log( client.Client_Email +'a ete cree');
+  
 };
 </script>
 
 <template>
-  <h1>Utilisateur :</h1>
+  <h1>Client :</h1>
   <!-- <table> -->
     <thead>
       <!-- <tr>

@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import * as cookie from './Cookie';
 
 </script>
 
 <template>
     <nav>
+        
         <a href="/login">login</a> |
-        <a href="/Welcome">Welcome</a> |
-        <a href="/GestionsUser">Gestion utilisateur</a> |
-        <a href="/GestionsClient">Gestion Client</a> |
-        <a href="/GestionsLivraison">Gestion Livraison</a> |
-        <a href="/GestionsTournee">Gestion Tournee</a> |
-        <a href="/MesLivraisons">Mes Livraisons</a> 
+            <a href="/Welcome">Welcome</a> |
+            <a href="/GestionsUser">Gestion utilisateur</a> |
+            <a href="/GestionsClient">Gestion Client</a> |
+            <a href="/GestionsLivraison">Gestion Livraison</a> |
+            <a href="/GestionsTournee">Gestion Tournee</a> |
+            <a href="/MesLivraisons">Mes Livraisons</a> 
+
     </nav>
 </template>
 

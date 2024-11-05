@@ -47,20 +47,7 @@ const onUserInput = async (newUserValue: Utilisateur, index: number) => {
   console.log( newUserValue.Utilisateur_Email +'a ete mis à jour et la modification est envoyée au serveur');
 };
 
-// delete user
-// const deleteUser = async (List_ID: number, index: number) => {
-//   monTableau.value[index] = newUserValue;
-//   await fetch(`http://localhost:3000/admin/users`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//             Utilisateur_ID: newUserValue.Utilisateur_ID,
-//           }),
-//   });
-//   console.log( newUserValue.Utilisateur_Email +'a ete mis à jour et la modification est envoyée au serveur');
-// };
+
 
 const deleteUser = async (ID: number, index: number) => {
   await fetch(`http://localhost:3000/admin/users`, {
@@ -81,54 +68,84 @@ const deleteUser = async (ID: number, index: number) => {
   console.log('User supprimé');
 };
 
-// ceate  user
+
+// create user
 const createUser = async () => {
-  // POST request using fetch with async/await
-   // eslint-disable-next-line no-debugger
-   debugger;
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json", },
+  await fetch(`http://localhost:3000/admin/users`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-            Utilisateur_Email: user.Utilisateur_Email,
+      Utilisateur_Email: user.Utilisateur_Email,
             Utilisateur_Password: user.Utilisateur_Password,
             Utilisateur_ID: user.Utilisateur_ID,
             Utilisateur_Nom: user.Utilisateur_Nom,
             Utilisateur_Prenom: user.Utilisateur_Prenom,
             Utilisateur_Admin: user.Utilisateur_Admin,
           }),
-  };
-  const response = await fetch(`http://localhost:3000/admin/users`, requestOptions);
-  // const data = await response.json();
-  if (!response.ok) {
-    console.error(response.status);
-    console.log('Erreur creation pour cause de '+ response.status);
-  } else {
-    monTableau.value.push( await response.json());
-    console.log('User Ajoute');
-  }
+  });
+  console.log( user.Utilisateur_Email +'a ete cree');
+  
 };
+
+
+
+
+// // ceate  user
+// const createUser = async () => {
+//   // POST request using fetch with async/await
+//    // eslint-disable-next-line no-debugger
+//    debugger;
+//   const requestOptions = {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json", },
+//     body: JSON.stringify({
+//             Utilisateur_Email: user.Utilisateur_Email,
+//             Utilisateur_Password: user.Utilisateur_Password,
+//             Utilisateur_ID: user.Utilisateur_ID,
+//             Utilisateur_Nom: user.Utilisateur_Nom,
+//             Utilisateur_Prenom: user.Utilisateur_Prenom,
+//             Utilisateur_Admin: user.Utilisateur_Admin,
+//           }),
+//   };
+//   const response = await fetch(`http://localhost:3000/admin/users`, requestOptions);
+//   // const data = await response.json();
+//   if (!response.ok) {
+//     console.error(response.status);
+//     console.log('Erreur creation pour cause de '+ response.status);
+//   } else {
+//     monTableau.value.push( await response.json());
+//     console.log('User Ajoute');
+//   }
+// };
 </script>
 
 <template>
   <h1>Utilisateur :</h1>
-  <!-- <table> -->
-    <thead>
-      <!-- <tr>
+  <table>
+    <tbody>
+      <tr>
         <th scope="col">Utilisateur_Email</th>
         <th scope="col">Utilisateur_Nom</th>
         <th scope="col">Utilisateur_Prenom</th>
         <th scope="col">Utilisateur_Admin</th>
 
-      </tr> -->
-    </thead>
+      </tr>
+   
     <div class="users" v-for="(element, index) in monTableau" :key="element.List_ID">
     <UserComponent :user="element" @onInput="onUserInput($event, index)" />
 
     <!-- <UserComponent :User="element" @onInput="onUserInput($event, index)" /> -->
     <button class="button button1" @click="deleteUser(element.Utilisateur_ID , index)">Supprimer</button>
+    
     </div>
-  <!-- </table> -->
+     </tbody>
+  </table>
 
   <div class="container">
     <form @submit.prevent="createUser">

@@ -72,7 +72,7 @@ try{
     const Client_nom    = req.body.Client_nom
     const Client_Prenom        = req.body.Client_Prenom
   console.log('req.body ',req.body)
-  const NewClient = await query('INSERT INTO clients (Utilisateur_Email, Client_AdresseFacturation,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin) VALUES (?,?,?,?)',[Client_Email,Client_AdresseFacturation,Client_nom,Client_Prenom])
+  const NewClient = await query('INSERT INTO clients (Client_Email, Client_AdresseFacturation,Client_nom,Client_Prenom) VALUES (?,?,?,?)',[Client_Email,Client_AdresseFacturation,Client_nom,Client_Prenom])
   res.status(201).json({'Message': "Compte client crée"});
 } catch (error) {
   console.error('Erreur :', error);
