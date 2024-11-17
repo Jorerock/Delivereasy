@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { Tournee } from '../models/tournee';
 
-
 const props = defineProps<{ cli: Tournee }>();
 const editMode = ref(false);
 const newValue = ref(props.cli.Tournee_ID);
@@ -20,9 +19,7 @@ const onCancelText = () => {
     newValue.value = props.cli.Tournee_ID;
 }
 </script>
-
 <template>
-
   <tbody>
     <tr>
       <td>   
@@ -39,13 +36,11 @@ const onCancelText = () => {
             <button @click="onCancelText">Annuler</button>
         </span>
     </td>
-  
     
     <td>   
         <span v-if="!editMode">
             <span @click="editMode = !editMode">
               Utilisateur_ID :
-
                 {{ props.cli.Utilisateur_ID }} 
             </span>
         </span>
@@ -56,11 +51,8 @@ const onCancelText = () => {
             <button @click="onCancelText">Annuler</button>
         </span>
     </td>
-    
     </tr>
-    
   </tbody>
-
 </template>
 
 
@@ -72,36 +64,29 @@ table {
   font-size: 0.8rem;
   letter-spacing: 1px;
 }
-
 caption {
   caption-side: bottom;
   padding: 10px;
   font-weight: bold;
 }
-
 thead,
 tfoot {
   background-color: rgb(228 240 245);
 }
-
 th,
 td {
   border: 1px solid rgb(160 160 160);
   padding: 8px 10px;
 }
-
 td:last-of-type {
   text-align: center;
 }
-
 tbody > tr:nth-of-type(even) {
   background-color: rgb(237 238 242);
 }
-
 tfoot th {
   text-align: right;
 }
-
 tfoot td {
   font-weight: bold;
 }

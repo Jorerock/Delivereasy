@@ -22,19 +22,19 @@ export default defineComponent({
   },
   setup() {
     const headers = ref<string[]>([
-      'Client_ID_Client',
-    'Client_Email',
-    'Client_AdresseFacturation',
-    'Client_Nom' , 
-    'Client_Prenom'  
+      'Utilisateur_Email',
+      'Utilisateur_Nom',
+      'Utilisateur_Prenom',
+      'Utilisateur_Admin',
+      'Utilisateur_Password'
     ]);
-    const apiUrl = ref<string>('http://localhost:3000/client');
+    const apiUrl = ref<string>('http://localhost:3000/admin/users');
     const monTableau = ref<Utilisateur[]>([]);
 
     // Fetch initial data
     onMounted(async () => {
       try {
-        const usersRequest = await fetch('http://localhost:3000/client/all', {
+        const usersRequest = await fetch('http://localhost:3000/admin/users/all', {
           method: 'GET',
           credentials: 'include',
           headers: {

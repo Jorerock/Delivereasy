@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import HeaderComponent from './components/HeaderComponent.vue';
 
+import HeaderComponent from './components/HeaderComponent.vue';
+import "./assets/main.css"
 </script>
 
 <template>
@@ -9,6 +10,17 @@ import HeaderComponent from './components/HeaderComponent.vue';
  <RouterView/>
  <br/>
  footer
+
+
 </template>
   
+
+
+
+
+
+
 <style scoped></style>
+
+
+

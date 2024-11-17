@@ -53,11 +53,12 @@ Clientrouteur.put('/', async (req: Request, res: Response) => {
   const Client_Email     = req.body.Client_Email
   const Client_AdresseFacturation  = req.body.Client_AdresseFacturation
   const Client_Prenom        = req.body.Client_Prenom
-  const Client_nom    = req.body.Client_nom
+  const Client_Nom    = req.body.Client_Nom
 
 try{
   console.log("body :",req.body)
-  const updateClient = await query('UPDATE clients SET Client_Email = ?,Client_AdresseFacturation = ?, Utilisateur_Prenom= ? ,Utilisateur_Nom = ?,  WHERE Utilisateur_ID = ?',[Client_Email,Client_AdresseFacturation,Client_Prenom,Client_nom,Client_ID_Client]);
+        //  const Todos = await query('UPDATE utilisateurs SET Utilisateur_Email = ? ,Utilisateur_Nom=?,Utilisateur_Prenom=?, Utilisateur_Admin = ?  WHERE Utilisateur_ID = ?',[Utilisateur_Email,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin,Utilisateur_ID]);
+  const updateClient = await query('UPDATE clients SET Client_Email = ?,Client_AdresseFacturation = ?,Client_Prenom=?,Client_Nom=?  WHERE clients.Client_ID_Client = ?',[Client_Email,Client_AdresseFacturation,Client_Prenom,Client_Nom,Client_ID_Client]);
   res.status(201).json({'Utilisateur_ID': "User : "+Client_ID_Client+" is update"});
 } catch (error) {
   console.error('Erreur :', error);

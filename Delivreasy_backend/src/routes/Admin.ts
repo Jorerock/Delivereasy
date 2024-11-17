@@ -14,7 +14,6 @@ Adminrouteur.use(express.json());
 Adminrouteur.use(cookieParser());
 
 Adminrouteur.get('/users/all',Connect,adminConnect, async (req: Request, res: Response) => {
-  
   const token =cookies.get("token")
   try {
   const users = await query('SELECT Utilisateur_ID,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin,Utilisateur_Email FROM utilisateurs')
@@ -57,7 +56,7 @@ Adminrouteur.put('/users',Connect,adminConnect, async (req: Request, res: Respon
   const Utilisateur_Admin     = req.body.Utilisateur_Admin
 try{
   console.log("body",req.body)
-  const Todos = await query('UPDATE utilisateurs SET Utilisateur_Email = ?  WHERE Utilisateur_ID = ?',[Utilisateur_Email,Utilisateur_ID]);
+  const Todos = await query('UPDATE utilisateurs SET Utilisateur_Email = ? ,Utilisateur_Nom=?,Utilisateur_Prenom=?, Utilisateur_Admin = ?  WHERE Utilisateur_ID = ?',[Utilisateur_Email,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin,Utilisateur_ID]);
   res.status(201).json({'Utilisateur_ID': "User : "+Utilisateur_ID+" is update"});
 } catch (error) {
   console.error('Erreur :', error);
@@ -72,7 +71,7 @@ try{
   const Utilisateur_Admin  :boolean   = req.body.Utilisateur_Admin
   const  Utilisateur_Email :string  = req.body.Utilisateur_Email;
   const  Utilisateur_Password:string = req.body.Utilisateur_Password;
-  console.log('req.body ',req.body)
+  console.log('post new user req.body ',req.body)
 
   const NewUser = await query('INSERT INTO utilisateurs (Utilisateur_Email, Utilisateur_Password,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin) VALUES (?,?,?,?,?)',[Utilisateur_Email,Utilisateur_Password,Utilisateur_Nom,Utilisateur_Prenom,Utilisateur_Admin])
   res.status(201).json({'Message': "Compte crée"});

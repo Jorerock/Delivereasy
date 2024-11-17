@@ -9,6 +9,7 @@ import GestionsClientPageComponent from '@/components/GestionsClientPageComponen
 import GestionsLivraisonPageComponent from '@/components/GestionsLivraisonPageComponent.vue';
 import GestionsTourneePageComponent from '@/components/GestionsTourneePageComponent.vue';
 import LivreurPageComponent from '@/components/LivreurPageComponent.vue';
+import NewGestionsUserPageComponent from '@/components/NewGestionsUserPageComponent.vue';
 
 
 const router = createRouter({
@@ -59,6 +60,11 @@ const router = createRouter({
       name: 'Welcome',
       path:'/Welcome',
       component: WelcomePageComponent
+    },
+    {
+      name: 'TabTest',
+      path:'/TabTest',
+      component: NewGestionsUserPageComponent
     }
   ]
 });
