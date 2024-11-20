@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import LivreurComponent from './LivreurComponent.vue';
+// import LivreurComponent from './LivreurComponent.vue';
 import { Livraison } from '../models/livreurGet';
 import * as cookie from './Cookie';
 

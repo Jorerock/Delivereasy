@@ -31,7 +31,8 @@ const token = generateTokenForUser(User)
       sameSite: 'strict', 
     });
 res.status(201).json({
-    'Utilisateur_ID': user,
+    'user': user.Utilisateur_ID,
+    'admin':User.Utilisateur_Admin,
     'token': token
 });
 

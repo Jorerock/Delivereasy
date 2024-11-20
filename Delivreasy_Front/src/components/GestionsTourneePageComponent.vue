@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import tourneeComponent from './GestionsTourneeComponent.vue';
+// import tourneeComponent from './GestionsTourneeComponent.vue';
 import { Tournee } from '../models/tournee';
 import * as cookie from './Cookie';
 

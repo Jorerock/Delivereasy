@@ -32,7 +32,7 @@ const router = useRouter()
             console.log('donne recup =', data);
             console.log('token',data.token)
             cookie.setCookie('token',data.token,1)
-            // cookie.setCookie('isAdmin',data.,1)
+            cookie.setCookie('isAdmin',data.admin,1)
 
             router.push({ path: "/Welcome" })
             

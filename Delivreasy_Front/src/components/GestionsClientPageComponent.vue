@@ -3,7 +3,7 @@
   <ReusableTable
     :headers="headers"
     :items="monTableau"
-    rowKey="Utilisateur_ID"
+    rowKey="Client_ID_Client"
     :apiUrl="apiUrl"
     @itemCreated="handleItemCreated"
     @itemUpdated="handleItemUpdated"
@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import ReusableTable from './ReusableTable.vue';
-import { Utilisateur } from '../models/Utilisateur';
+import { Client } from '../models/client';
 
 export default defineComponent({
   name: 'ParentComponent',
@@ -22,14 +22,13 @@ export default defineComponent({
   },
   setup() {
     const headers = ref<string[]>([
-      'Client_ID_Client',
     'Client_Email',
     'Client_AdresseFacturation',
     'Client_Nom' , 
     'Client_Prenom'  
     ]);
     const apiUrl = ref<string>('http://localhost:3000/client');
-    const monTableau = ref<Utilisateur[]>([]);
+    const monTableau = ref<Client[]>([]);
 
     // Fetch initial data
     onMounted(async () => {
@@ -56,13 +55,14 @@ export default defineComponent({
       }
     });
 
-    const handleItemCreated = (newItem: Utilisateur): void => {
+
+    const handleItemCreated = (newItem: Client): void => {
       monTableau.value.push(newItem);
     };
 
-    const handleItemUpdated = (updatedItem: Utilisateur): void => {
+    const handleItemUpdated = (updatedItem: Client): void => {
       const index = monTableau.value.findIndex(
-        item => item.Utilisateur_ID === updatedItem.Utilisateur_ID
+        item => item.Client_ID_Client === updatedItem.Client_ID_Client
       );
       if (index !== -1) {
         monTableau.value.splice(index, 1, updatedItem);

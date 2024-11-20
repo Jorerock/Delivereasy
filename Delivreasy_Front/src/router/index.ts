@@ -1,3 +1,5 @@
+import * as cookie from '../components/Cookie';
+
 import AboutPageComponent from '@/components/AboutPageComponent.vue';
 import LoginPageComponent from '../components/LoginPageComponent.vue';
 // import TodosPageComponent from '@/components/TodosPageComponent.vue';
@@ -9,7 +11,9 @@ import GestionsClientPageComponent from '@/components/GestionsClientPageComponen
 import GestionsLivraisonPageComponent from '@/components/GestionsLivraisonPageComponent.vue';
 import GestionsTourneePageComponent from '@/components/GestionsTourneePageComponent.vue';
 import LivreurPageComponent from '@/components/LivreurPageComponent.vue';
-import NewGestionsUserPageComponent from '@/components/NewGestionsUserPageComponent.vue';
+// import NewGestionsUserPageComponent from '@/components/NewGestionsUserPageComponent.vue';
+import GestionsObjetPageComponent from '@/components/GestionsObjetPageComponent.vue';
+
 
 
 const router = createRouter({
@@ -49,6 +53,12 @@ const router = createRouter({
       path:'/GestionsTournee',
       component: GestionsTourneePageComponent
       // component: LoginPageComponent
+    },    
+    {
+      name: 'GestionsObjet',
+      path:'/GestionsObjet',
+      component: GestionsObjetPageComponent
+      // component: LoginPageComponent
     },
     {
       name: 'MesLivraisons',
@@ -59,14 +69,35 @@ const router = createRouter({
     {
       name: 'Welcome',
       path:'/Welcome',
-      component: WelcomePageComponent
-    },
-    {
-      name: 'TabTest',
-      path:'/TabTest',
-      component: NewGestionsUserPageComponent
+      component: WelcomePageComponent,
+      meta: { requiresAuth: true } // Mark this route as requiring authentication
     }
   ]
 });
+
+
+
+const isTokenValid = () => {
+  const isAdmin =  cookie.getCookie('isAdmin');
+ 
+  console.log('isAdmin : '+isAdmin)
+  return isAdmin; // Simple check, replace with actual token validation logic
+};
+
+// Navigation guard
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Check if the route requires authentication
+    if (!isTokenValid()) {
+      // Redirect to login if no valid token
+      next('/login');
+    } else {
+      next(); // Proceed to the route
+    }
+  } else {
+    next(); // Always allow access to non-authenticated routes
+  }
+});
+
 
 export default router;

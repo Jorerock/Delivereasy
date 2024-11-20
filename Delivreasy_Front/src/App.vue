@@ -6,6 +6,13 @@ import "./assets/main.css"
 
 <template>
    <HeaderComponent/>
+
+   
+   <!-- <div class="p-4 bg-blue-500 text-white rounded-lg">
+     Hello Tailwind CSS!
+   </div> -->
+
+  
   <br/>
  <RouterView/>
  <br/>
@@ -14,8 +21,6 @@ import "./assets/main.css"
 
 </template>
   
-
-
 
 
 

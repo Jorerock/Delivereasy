@@ -48,6 +48,9 @@ CREATE TABLE Commandes(
 CREATE TABLE Objets(
    Objet_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
    Objet_Desciption VARCHAR(150),
-   Commande_ID_Commande INT NOT NULL,
-   FOREIGN KEY(Commande_ID_Commande) REFERENCES Commandes(Commande_ID_Commande)
+   Client_ID_Client INT NOT NULL,
+   Livraison_ID INT NOT NULL,
+   FOREIGN KEY(Client_ID_Client) REFERENCES Clients(Client_ID_Client),
+   FOREIGN KEY(Livraison_ID) REFERENCES Livraisons(Livraison_ID)
 );
+

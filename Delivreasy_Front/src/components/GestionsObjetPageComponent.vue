@@ -1,8 +1,4 @@
 
-
-const livraison : Livraison =  {Livraison_Adresse:'' ,Livraison_Arrive: false, Livraison_ID:1 ,Livraison_Commentaire_:'',Livraison_Etape:0,Livraison_Signature:0,Tournee_ID:1};
-
-
 <template>
     <h2 class="text-lg font-semibold text-gray-900">Gestion des Objets</h2>
     <ReusableTable
@@ -18,7 +14,7 @@ const livraison : Livraison =  {Livraison_Adresse:'' ,Livraison_Arrive: false, L
   <script lang="ts">
   import { defineComponent, ref, onMounted } from 'vue';
   import ReusableTable from './ReusableTable.vue';
-  import { Client } from '../models/client';
+  import { objet } from '../models/objet';
   
   export default defineComponent({
     name: 'ParentComponent',
@@ -27,20 +23,17 @@ const livraison : Livraison =  {Livraison_Adresse:'' ,Livraison_Arrive: false, L
     },
     setup() {
       const headers = ref<string[]>([
-      'Livraison_Adresse',
-      'Livraison_Arrive',
-      'Livraison_Commentaire_,',
-      'Livraison_Etape',
-      'Livraison_Signature',
-      'Tournee_ID'
+      'Objet_Desciption',
+      'Client_ID_Client',
+      'Livraison_ID'
       ]);
-      const apiUrl = ref<string>('http://localhost:3000/livraisons');
-      const monTableau = ref<Client[]>([]);
+      const apiUrl = ref<string>('http://localhost:3000/objet');
+      const monTableau = ref<objet[]>([]);
   
       // Fetch initial data
       onMounted(async () => {
         try {
-          const usersRequest = await fetch('http://localhost:3000/livraisons/all', {
+          const usersRequest = await fetch('http://localhost:3000/objet/all', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -62,13 +55,13 @@ const livraison : Livraison =  {Livraison_Adresse:'' ,Livraison_Arrive: false, L
         }
       });
   
-      const handleItemCreated = (newItem: Client): void => {
+      const handleItemCreated = (newItem: objet): void => {
         monTableau.value.push(newItem);
       };
   
-      const handleItemUpdated = (updatedItem: Client): void => {
+      const handleItemUpdated = (updatedItem: objet): void => {
         const index = monTableau.value.findIndex(
-          item => item.Client_ID_Client === updatedItem.Client_ID_Client
+          item => item.Objet_ID === updatedItem.Objet_ID
         );
         if (index !== -1) {
           monTableau.value.splice(index, 1, updatedItem);

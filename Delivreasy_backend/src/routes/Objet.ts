@@ -42,23 +42,28 @@ objetsrouteur.put('/',Connect,adminConnect, async (req: Request, res: Response) 
   const Objet_ID             = req.body.Objet_ID 
   const Objet_Desciption        = req.body.Objet_Desciption
   const Livraison_Etape          = req.body.Livraison_Etape
+  const Client_ID_Client = req.body.Client_ID_Client
+  const Livraison_ID  = req.body.Livraison_ID
+  console.log('put req.body :',req.body)
 
 try{
-  const updateobjets = await query('UPDATE objets SET Objet_ID = ?,Objet_Desciption = ?, Livraison_Etape= ?',[Objet_ID,Objet_Desciption,Livraison_Etape]);
+                                  'UPDATE utilisateurs SET Utilisateur_Email = ? ,Utilisateur_Nom=?,Utilisateur_Prenom=?, Utilisateur_Admin = ?  WHERE Utilisateur_ID = ?'
+  const updateobjets = await query('UPDATE objets SET Objet_Desciption =? ,Client_ID_Client=?,Livraison_ID=? WHERE Objet_ID = ?',[Objet_Desciption,Client_ID_Client,Livraison_ID,Objet_ID]);
   res.status(201).json({'Utilisateur_ID': "User : "+Objet_Desciption+" is update"});
 } catch (error) {
   console.error('Erreur :', error);
   res.status(500).json({ error: error });
 }});
 
-// cree une livraison
+// cree un objet
 objetsrouteur.post('/',Connect,adminConnect,async (req: Request, res: Response) => { 
 try{   
-    const Objet_ID             = req.body.Objet_ID 
+    
     const Objet_Desciption        = req.body.Objet_Desciption
+    const Client_ID_Client        = req.body.Client_ID_Client
     const Livraison_Etape          = req.body.Livraison_Etape
   console.log('req.body ',req.body)
-  const NewClient = await query('INSERT INTO objets (Objet_ID, Objet_Desciption,Livraison_Etape) VALUES (?,?,?)',[Objet_ID,Objet_Desciption,Livraison_Etape])
+  const NewClient = await query('INSERT INTO objets (Objet_Desciption,Client_ID_Client) VALUES (?,?)',[Objet_Desciption,Client_ID_Client])
   res.status(201).json({'Message': "Compte client crée"});
 } catch (error) {
   console.error('Erreur :', error);

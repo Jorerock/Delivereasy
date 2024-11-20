@@ -70,10 +70,10 @@ Clientrouteur.post('/',Connect,adminConnect,async (req: Request, res: Response) 
 try{ 
    const Client_Email     = req.body.Client_Email
     const Client_AdresseFacturation  = req.body.Client_AdresseFacturation
-    const Client_nom    = req.body.Client_nom
+    const Client_Nom    = req.body.Client_Nom
     const Client_Prenom        = req.body.Client_Prenom
   console.log('req.body ',req.body)
-  const NewClient = await query('INSERT INTO clients (Client_Email, Client_AdresseFacturation,Client_nom,Client_Prenom) VALUES (?,?,?,?)',[Client_Email,Client_AdresseFacturation,Client_nom,Client_Prenom])
+  const NewClient = await query('INSERT INTO clients (Client_Email, Client_AdresseFacturation,Client_Nom,Client_Prenom) VALUES (?,?,?,?)',[Client_Email,Client_AdresseFacturation,Client_Nom,Client_Prenom])
   res.status(201).json({'Message': "Compte client crée"});
 } catch (error) {
   console.error('Erreur :', error);
