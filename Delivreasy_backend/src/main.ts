@@ -39,6 +39,8 @@ server.use('/tournee',Tourneesrouteur);
 server.use('/Livreur',userrouteur);
 
 
+
+
 const sql = `SELECT 1 + 1 AS test`;
 query(sql).then(
   value => console.log(value)

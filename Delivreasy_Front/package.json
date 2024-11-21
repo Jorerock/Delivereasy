@@ -13,6 +13,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/axios": "^0.9.36",
+    "axios": "^1.7.7",
     "js-cookie": "^3.0.5",
     "vue": "^3.5.10",
     "vue-router": "^4.3.3"

@@ -1,4 +1,4 @@
-import express,{ Request, Response, Router } from "express";
+import express,{ Request, response, Response, Router } from "express";
 import { query } from "../db";
 import {generateTokenForUser} from "../Function/jwt.utils"
 // import adminConnect from '../Function/jwt.utils';
@@ -42,9 +42,9 @@ console.error('Erreur :', error);
 }
 });
 
-authRouter.get("/logout", (req, res) => {
+authRouter.post("/logout", (req, res) => {
 	res.clearCookie("jwtToken");
-	res.redirect('/');
+  res.json({ response: 'succesfull logout' });
 });
 
 

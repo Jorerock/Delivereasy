@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as cookie from './Cookie';
-import { ref } from 'vue';
+import { ref,computed } from 'vue';
 
 const isOpen = ref(false);
 
@@ -10,6 +10,15 @@ const isTokenValid = () => {
   console.log('isAdmin : '+isAdmin)
   return isAdmin; // Simple check, replace with actual token validation logic
 };
+const showAdminView = computed(() => {
+  const isAdmin = cookie.getCookie('isAdmin') === '1';
+  return isAdmin;
+});
+
+const showLivreurView = computed(() => {
+  const isAdmin = cookie.getCookie('isAdmin') === '0';
+  return isAdmin;
+});
 
 </script>
 
@@ -25,23 +34,23 @@ const isTokenValid = () => {
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Login
               </a>
-              <a  v-if="cookie.getCookie('IsAdmin')" href="/Welcome"
+              <a  href="/Welcome"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Welcome
               </a>
-              <a href="/GestionsUser"
+              <a  v-if="showAdminView" href="/GestionsUser"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Gestion Utilisateur
               </a>
-              <a href="/GestionsClient"
+              <a  v-if="showAdminView" href="/GestionsClient"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Gestion Client
               </a>
-              <a href="/GestionsLivraison"
+              <a  v-if="showAdminView" href="/GestionsLivraison"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Gestion Livraison
               </a>
-              <a href="/GestionsTournee"
+              <a  v-if="showAdminView" href="/GestionsTournee"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Gestion Tournée
               </a>
@@ -49,7 +58,7 @@ const isTokenValid = () => {
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Mes Livraisons
               </a>
-              <a href="/GestionsObjet"
+              <a  v-if="showAdminView" href="/GestionsObjet"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Gestion Objet
               </a>
