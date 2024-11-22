@@ -9,7 +9,7 @@
       <!-- Mobile view (card layout) -->
       <div class="block sm:hidden">
         <button
-          @click="showModal = true,OnTourneeInput(data)  "
+          @click="OnTourneeInput(data)  "
 
           class="w-full p-4 hover:bg-gray-50 transition-colors duration-150"
         >
@@ -46,9 +46,9 @@
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Commentaire
                   </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     ID
-                  </th>
+                  </th> -->
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
@@ -59,9 +59,9 @@
                   <td class="px-6 py-4 whitespace-normal text-sm text-gray-900">
                     {{ data.Livraison_Commentaire_ }}
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {{ data.Livraison_ID }}
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
@@ -112,11 +112,26 @@
           <div class="sm:flex sm:items-start">
             <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                Ajouter un nouveau
+                Info Colis
               </h3>
+
+              <div 
+              v-for="element in monTableau" 
+              :key="element.List_ID"
+              class="bg-white rounded-lg shadow-sm transition-transform duration-200 "
+            >
+              <ObjetComponent
+                v-if="element"
+                :data="element"
+              />
+
+            </div>
+                    <SigneComponent></SigneComponent>
+
               <form @submit.prevent="" class="mt-4 space-y-4">
  
                 <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                  
                   <button
                     type="submit"
                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -141,24 +156,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import ObjetComponent from './ObjetComponent.vue'
+import SigneComponent from './SigneComponent.vue'
 
 const showModal = ref(false)
 
@@ -167,6 +170,7 @@ interface ApiResponse {
   Livraison_Adresse: string
   Livraison_Commentaire_: string
   Livraison_ID: number
+  Livraison_Arrive : number
 }
 
 const monTableau = ref<any[]>([])
@@ -201,6 +205,6 @@ const OnTourneeInput = async (data: ApiResponse) => {
 }
 
 defineProps<{
-  data: ApiResponse
+  data: any
 }>()
 </script>

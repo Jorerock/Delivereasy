@@ -73,4 +73,53 @@ try{
 }});
 
 
+// livraisonsrouteur.post('/signatures', async (req, res) => {
+//   try {
+//     const { signature } = req.body
+//     // Save base64 image to database or file system
+//     // Example: 
+//     const buffer = Buffer.from(signature.split(',')[1], 'base64')
+//     await saveSignature(buffer)
+//     res.status(200).json({ message: 'Signature saved' })
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to save signature' })
+//   }
+// })
+
+const fs = require('fs').promises;
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
+
+livraisonsrouteur.post('/signatures', async (req, res) => {
+  try {
+    const { signature } = req.body;
+    
+    // Remove data URL prefix if present
+    const base64Data = signature.replace(/^data:image\/\w+;base64,/, '');
+    
+    // Generate unique filename
+    const filename = `signature-${uuidv4()}.png`;
+    const uploadDir = path.join(__dirname, 'uploads', 'signature');
+    
+    // Ensure upload directory exists
+    await fs.mkdir(uploadDir, { recursive: true });
+    
+    // Full path for the file
+    const filePath = path.join(uploadDir, filename);
+    
+    // Write file
+    await fs.writeFile(filePath, base64Data, 'base64');
+    // const NewClient = await query('INSERT INTO livraisons (Livraison_ID, Livraison_Adresse,Livraison_Etape,Livraison_Commentaire_,Livraison_Arrive,Tournee_ID) VALUES (?)',[Livraison_ID])
+    // if(NewClient){
+    res.status(200).json({ 
+      message: 'Signature saved', 
+      filename: filename 
+    });
+  // }
+  } catch (error) {
+    console.error('Signature save error:', error);
+    res.status(500).json({ error: 'Failed to save signature' })
+  }
+})
+
 export default livraisonsrouteur;

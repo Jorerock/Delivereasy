@@ -2,12 +2,10 @@
   <div class="container mx-auto px-4 py-6">
     <!-- Header Section -->
     <div class="mb-6">
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">Delivery Schedule</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Mes Livraisons</h2>
       <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <div class="w-full sm:w-auto">
-          <label for="date-picker" class="block text-sm font-medium text-gray-700 mb-1">
-            Select Date
-          </label>
+
           <input
             id="date-picker"
             type="date"
@@ -26,7 +24,7 @@
     >
       <div class="inline-flex items-center gap-2">
         <div class="w-6 h-6 border-2 border-t-blue-600 border-gray-200 rounded-full animate-spin"></div>
-        <span class="text-gray-600">Loading deliveries...</span>
+        <span class="text-gray-600">Chargement des Livraisons...</span>
       </div>
     </div>
 
@@ -56,7 +54,7 @@
       <div 
         v-for="element in monTableau" 
         :key="element.List_ID"
-        class="bg-white rounded-lg shadow-sm transition-transform duration-200 hover:transform hover:scale-102"
+        class="bg-white rounded-lg shadow-sm transition-transform duration-200 "
       >
         <ResultComponent
           v-if="element"
@@ -75,7 +73,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
         </svg>
       </div>
-      <p class="text-gray-500 text-lg">No deliveries found for this date</p>
+      <p class="text-gray-500 text-lg">Pas de Livraisons à cette date</p>
     </div>
   </div>
 </template>
