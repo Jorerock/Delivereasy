@@ -93,7 +93,10 @@ const { v4: uuidv4 } = require('uuid');
 livraisonsrouteur.post('/signatures', async (req, res) => {
   try {
     const { signature } = req.body;
-    
+    const Livraison_ID    = req.body.Livraison_ID 
+    // const Livraison_ID = 3
+    console.log("body",req.body)
+
     // Remove data URL prefix if present
     const base64Data = signature.replace(/^data:image\/\w+;base64,/, '');
     
@@ -105,17 +108,18 @@ livraisonsrouteur.post('/signatures', async (req, res) => {
     await fs.mkdir(uploadDir, { recursive: true });
     
     // Full path for the file
+
     const filePath = path.join(uploadDir, filename);
     
     // Write file
     await fs.writeFile(filePath, base64Data, 'base64');
-    // const NewClient = await query('INSERT INTO livraisons (Livraison_ID, Livraison_Adresse,Livraison_Etape,Livraison_Commentaire_,Livraison_Arrive,Tournee_ID) VALUES (?)',[Livraison_ID])
-    // if(NewClient){
+     const signatureBDD = await query('UPDATE livraisons SET Livraison_Signature = ?, Livraison_Arrive = 1 WHERE livraisons.Livraison_ID = ?; ',[uploadDir+filename,Livraison_ID])
+     if(signatureBDD){
     res.status(200).json({ 
       message: 'Signature saved', 
       filename: filename 
     });
-  // }
+   }
   } catch (error) {
     console.error('Signature save error:', error);
     res.status(500).json({ error: 'Failed to save signature' })

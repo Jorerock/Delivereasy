@@ -1,60 +1,71 @@
-import express,{ Request, Response, Router,NextFunction  } from "express";
+import express,{ Request, Response, Router } from "express";
 var cookieParser = require('cookie-parser')
 import { query } from "../db";
 import {Connect,adminConnect,GETuserID} from '../Function/jwt.utils';
-var cookies = require('js-cookie')
-var bodyParser  = require('body-parser');
-const LivreurRouteur = Router();
 
-LivreurRouteur.use(bodyParser.urlencoded({ extended: true }));
-LivreurRouteur.use(bodyParser.json());
 
-LivreurRouteur.use(express.json());
-LivreurRouteur.use(cookieParser());
+const livreurRouteur = Router();
+livreurRouteur.use(express.json());
+livreurRouteur.use(cookieParser());
 
-// get all livraisons
-LivreurRouteur.get('/all',Connect, async (req: Request, res: Response) => {
+livreurRouteur.post('/', async (req: Request, res: Response) => {
   try {
-  const clients = await query('SELECT * FROM livraisons')
+    const Utilisateur_ID  = req.body.Utilisateur_ID 	
+    console.log("body",req.body)
+    const Tournee = await query('SELECT tournee.Tournee_ID, livraisons.Livraison_ID,objets.Objet_ID ,Objet_Desciption,Livraison_Adresse,Livraison_Etape,Livraison_Commentaire_,Livraison_Arrive,Tournee_Jour FROM objets join livraisons on objets.Livraison_ID = livraisons.Livraison_ID  join tournee on tournee.Tournee_ID = livraisons.Tournee_ID join utilisateurs on utilisateurs.Utilisateur_ID = tournee.Utilisateur_ID where utilisateurs.Utilisateur_ID = ? ',[1])
 
-  res.status(201).json(clients);
+    console.log(Tournee)
+  res.status(201).json(Tournee);
   } catch (error) {
   console.error('Erreur :', error);
   res.status(500).json({ error: 'Erreur serveur' });
 }});
 
 
-// update un livraisons
-LivreurRouteur.put('/',Connect, async (req: Request, res: Response) => {
-  const Livraison_ID             = req.body.Livraison_ID 
-  const Livraison_Adresse        = req.body.Livraison_Adresse
-  const Livraison_Etape          = req.body.Livraison_Etape
-  const Livraison_Signature      = req.body.Livraison_Signature
-  const Livraison_Commentaire_   = req.body.Livraison_Commentaire_
-  const Livraison_Arrive         = req.body.Livraison_Arrive
-  const Tournee_ID               = req.body.Tournee_ID
+livreurRouteur.post('/date', async (req: Request, res: Response) => {
+  try {
+    const Utilisateur_ID  = req.body.Utilisateur_ID 	
+    const date = req.body.date 	
+    console.log("body",req.body)
+    const Tournee = await query('SELECT tournee.Tournee_ID, Tournee_Jour FROM tournee  where tournee.Tournee_Jour = ? ',['2024-11-25'])
 
-try{
-  const updatelivraisons = await query('UPDATE livraisons SET Livraison_ID = ?,Livraison_Adresse = ?, Livraison_ID= ?',[Livraison_ID,Livraison_Adresse,Livraison_Etape]);
-  res.status(201).json({'Utilisateur_ID': "User : "+Livraison_Adresse+" is update"});
-} catch (error) {
+    console.log(Tournee)
+  res.status(201).json(Tournee);
+  } catch (error) {
   console.error('Erreur :', error);
-  res.status(500).json({ error: error });
+  res.status(500).json({ error: 'Erreur serveur' });
+}});
+
+
+livreurRouteur.post('/Livraisons', async (req: Request, res: Response) => {
+  try {
+    const Utilisateur_ID  = req.body.Utilisateur_ID 	
+    const Tournee_Jour = req.body.Tournee_Jour 	
+    console.log("body",req.body)
+    const Tournee = await query('SELECT tournee.Tournee_ID,Livraison_ID,Livraison_Adresse, Livraison_Commentaire_ ,Livraison_Arrive from livraisons join tournee on tournee.Tournee_ID = livraisons.Tournee_ID join utilisateurs on utilisateurs.Utilisateur_ID = tournee.Utilisateur_ID where utilisateurs.Utilisateur_ID = ? AND tournee.Tournee_Jour = ? ',[Utilisateur_ID,Tournee_Jour])
+    console.log(Tournee)
+  res.status(201).json(Tournee);
+  } catch (error) {
+  console.error('Erreur :', error);
+  res.status(500).json({ error: 'Erreur serveur' });
 }});
 
 
 
-// get all livraisons
-LivreurRouteur.get('/:userid',Connect, async (req: Request, res: Response) => {
-    try {
-    const userId = req.body.userId 
-    const MesLivraison = await query('SELECT * FROM livraisons')
+livreurRouteur.post('/Objet', async (req: Request, res: Response) => {
+  try {
+    const  Livraison_ID 	  = req.body. Livraison_ID 	 	
+    console.log("body",req.body)
+    const Tournee = await query('SELECT * from objets  where  Livraison_ID 	= ? ',[Livraison_ID ])
 
-    res.status(201).json(MesLivraison);
-    } catch (error) {
-    console.error('Erreur :', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }});
-  
+    console.log(Tournee)
+  res.status(201).json(Tournee);
+  } catch (error) {
+  console.error('Erreur :', error);
+  res.status(500).json({ error: 'Erreur serveur' });
+}});
 
-export default LivreurRouteur;
+
+
+export default livreurRouteur;
+

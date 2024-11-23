@@ -105,11 +105,13 @@ const onTodoInput = async () => {
     
     const usersRequest = await fetch(`http://localhost:3000/Livreur/Livraisons`, {
       method: 'post',
+      credentials: 'include',
+
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        Date: selectedDate.value,
+        Tournee_Jour: selectedDate.value,
         Utilisateur_ID: 1,
       }),
     })

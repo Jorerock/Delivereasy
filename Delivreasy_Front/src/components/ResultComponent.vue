@@ -3,7 +3,7 @@
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
       <!-- Card header -->
       <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
-        <h3 class="text-lg font-medium text-gray-900">Detaille de la Livraison</h3>
+        <h3 class="text-lg font-medium text-gray-900">Detail de la Livraison</h3>
       </div>
 
       <!-- Mobile view (card layout) -->
@@ -123,10 +123,15 @@
               <ObjetComponent
                 v-if="element"
                 :data="element"
+                :Tournee_ID = data.Tournee_ID
               />
 
             </div>
-                    <SigneComponent></SigneComponent>
+                    <SigneComponent
+                    v-if="data.Livraison_ID"
+
+                      :Livraison_ID = "data.Livraison_ID"
+                      />
 
               <form @submit.prevent="" class="mt-4 space-y-4">
  

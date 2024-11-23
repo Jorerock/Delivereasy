@@ -1,9 +1,10 @@
 <template>
+
     <div class="w-full p-4">
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <!-- Card header -->
         <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
-          <h3 class="text-lg font-medium text-gray-900">Detaille de la Livraison</h3>
+          <h3 class="text-lg font-medium text-gray-900">Detail de l'Objet</h3>
         </div>
   
         <!-- Mobile view (card layout) -->
@@ -37,12 +38,12 @@
               <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                   <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Objet_Desciption
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    </th> -->
+                    <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Commentaire
-                    </th>
+                    </th> -->
                     <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       ID
                     </th> -->
@@ -89,5 +90,6 @@
   
   defineProps<{
     data: any
+    Tournee_ID: number
   }>()
   </script>

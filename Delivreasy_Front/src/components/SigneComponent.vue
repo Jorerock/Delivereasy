@@ -1,4 +1,5 @@
 <template>
+
   <div class="container mx-auto p-6">
     <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
       <h2 class="text-2xl font-bold mb-6 text-center">Digital Signature</h2>
@@ -51,6 +52,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+
+
+const props = defineProps<{
+  Livraison_ID: number
+  }>()
+
 
 interface StatusMessage {
   type: 'success' | 'error'
@@ -129,14 +136,14 @@ const saveSignature = async () => {
   try {
     // Convert canvas to base64 image
     const signatureImage = canvas.toDataURL('image/png')
-
     const response = await fetch('http://localhost:3000/livraisons/signatures', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        signature: signatureImage
+        signature: signatureImage,
+        Livraison_ID: props.Livraison_ID
       })
     })
 
@@ -157,4 +164,8 @@ const saveSignature = async () => {
     console.error('Signature save error:', error)
   }
 }
+
+
+
+
 </script>
