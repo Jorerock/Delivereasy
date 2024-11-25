@@ -33,7 +33,6 @@ export function Connect(req: UserRequest, res: Response, next: NextFunction)
         utilisateur_ID  : jwtToken.utilisateur_ID,
         Utilisateur_Admin : jwtToken.Utilisateur_Admin 
       };
-
         next()
 }else{
     return res.status(401).json({ message: 'Pas de token présent dans le cookie' });
@@ -48,10 +47,13 @@ export const adminConnect = (req: UserRequest, res: Response, next: NextFunction
   }
 };
 
-
-
-export const GETuserID = (req: UserRequest) => {
-  if (req.user && req.user.utilisateur_ID) {
-    return(req.user.utilisateur_ID)
-  }
+export const GETuserID = (req: any) => {
+  const token = req.cookies['token'];
+  if(token != null) {
+    const jwtToken = jwt.verify(token,tokensign) ;
+    return(jwtToken.utilisateur_ID)
+}
+  // if (req.user && req.user.utilisateur_ID) {
+  //   return(req.user.utilisateur_ID)
+  // }
 };

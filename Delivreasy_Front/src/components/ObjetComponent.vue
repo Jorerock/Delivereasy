@@ -1,6 +1,5 @@
 <template>
-
-    <div class="w-full p-4">
+  <div class="w-full p-4">
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <!-- Card header -->
         <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
@@ -57,9 +56,6 @@
                     <td class="px-6 py-4 whitespace-normal text-sm text-gray-900">
                       {{ data.Livraison_Commentaire_ }}
                     </td>
-                    <!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {{ data.Livraison_ID }}
-                    </td> -->
                   </tr>
                 </tbody>
               </table>
@@ -68,17 +64,12 @@
         </div>
         </div>
       </div>
-    </div>
-
-  
-  
-  </template>
+  </div>
+</template>
   
   <script setup lang="ts">
   import { ref } from 'vue'
   import ResultComponent from './ResultComponent.vue'
-  
-
   
   interface ApiResponse {
     Livraison_Adresse: string
@@ -86,7 +77,6 @@
     Livraison_ID: number
     Livraison_Arrive : number
   }
-  
   
   defineProps<{
     data: any

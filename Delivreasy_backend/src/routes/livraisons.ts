@@ -73,19 +73,6 @@ try{
 }});
 
 
-// livraisonsrouteur.post('/signatures', async (req, res) => {
-//   try {
-//     const { signature } = req.body
-//     // Save base64 image to database or file system
-//     // Example: 
-//     const buffer = Buffer.from(signature.split(',')[1], 'base64')
-//     await saveSignature(buffer)
-//     res.status(200).json({ message: 'Signature saved' })
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to save signature' })
-//   }
-// })
-
 const fs = require('fs').promises;
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');

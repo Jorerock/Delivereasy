@@ -28,7 +28,6 @@ server.use(cors({
   credentials: true
 }));
 
-
 server.use('/admin',Adminrouteur);
 server.use('/auth',authRouter);
 server.use('/client',Clientrouteur);
@@ -37,9 +36,6 @@ server.use('/livraisons',livraisonsRouter);
 server.use('/objet',objetsrouteur);
 server.use('/tournee',Tourneesrouteur);
 server.use('/Livreur',livreurRouteur);
-
-
-
 
 const sql = `SELECT 1 + 1 AS test`;
 query(sql).then(

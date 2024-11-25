@@ -39,8 +39,9 @@ livreurRouteur.post('/date', async (req: Request, res: Response) => {
 
 livreurRouteur.post('/Livraisons', async (req: Request, res: Response) => {
   try {
-    const Utilisateur_ID  = req.body.Utilisateur_ID 	
-    const Tournee_Jour = req.body.Tournee_Jour 	
+    console.log('user id token : '+GETuserID(req))
+    const Utilisateur_ID  = GETuserID(req)
+    const Tournee_Jour = req.body.Tournee_Jour 
     console.log("body",req.body)
     const Tournee = await query('SELECT tournee.Tournee_ID,Livraison_ID,Livraison_Adresse, Livraison_Commentaire_ ,Livraison_Arrive from livraisons join tournee on tournee.Tournee_ID = livraisons.Tournee_ID join utilisateurs on utilisateurs.Utilisateur_ID = tournee.Utilisateur_ID where utilisateurs.Utilisateur_ID = ? AND tournee.Tournee_Jour = ? ',[Utilisateur_ID,Tournee_Jour])
     console.log(Tournee)
@@ -49,7 +50,6 @@ livreurRouteur.post('/Livraisons', async (req: Request, res: Response) => {
   console.error('Erreur :', error);
   res.status(500).json({ error: 'Erreur serveur' });
 }});
-
 
 
 livreurRouteur.post('/Objet', async (req: Request, res: Response) => {

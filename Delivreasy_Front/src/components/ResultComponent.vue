@@ -4,6 +4,8 @@
       <!-- Card header -->
       <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
         <h3 class="text-lg font-medium text-gray-900">Detail de la Livraison</h3>
+        <div v-if="data.Livraison_Arrive"> Livraisons Ok</div>
+
       </div>
 
       <!-- Mobile view (card layout) -->
@@ -114,12 +116,12 @@
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                 Info Colis
               </h3>
-
               <div 
               v-for="element in monTableau" 
               :key="element.List_ID"
               class="bg-white rounded-lg shadow-sm transition-transform duration-200 "
             >
+
               <ObjetComponent
                 v-if="element"
                 :data="element"
@@ -127,17 +129,19 @@
               />
 
             </div>
+            <div v-if="!data.Livraison_Arrive"> 
+
                     <SigneComponent
                     v-if="data.Livraison_ID"
 
                       :Livraison_ID = "data.Livraison_ID"
                       />
-
+                    </div>
               <form @submit.prevent="" class="mt-4 space-y-4">
  
                 <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                   
-                  <button
+                  <!-- <button
                     type="submit"
                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
@@ -149,7 +153,7 @@
                     class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
                   >
                     Annuler
-                  </button>
+                  </button> -->
                 </div>
               </form>
             </div>
@@ -198,8 +202,8 @@ const OnTourneeInput = async (data: ApiResponse) => {
       throw new Error('Network response was not ok')
     }
     
-    const todos = await usersRequest.json()
-    monTableau.value = [...todos]
+    const Objets = await usersRequest.json()
+    monTableau.value = [...Objets]
     console.log('monTableau est mis à jour et la modification est envoyée au serveur')
   } catch (error) {
     console.error('Error:', error)

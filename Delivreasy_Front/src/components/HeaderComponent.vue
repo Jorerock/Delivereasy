@@ -6,18 +6,18 @@ const isOpen = ref(false);
 
 const isTokenValid = () => {
   const isAdmin =  cookie.getCookie('isAdmin');
- 
   console.log('isAdmin : '+isAdmin)
   return isAdmin; // Simple check, replace with actual token validation logic
 };
+
 const showAdminView = computed(() => {
   const isAdmin = cookie.getCookie('isAdmin') === '1';
   return isAdmin;
 });
 
 const showLivreurView = computed(() => {
-  const isAdmin = cookie.getCookie('isAdmin') === '0';
-  return isAdmin;
+  const isNotAdmin = (cookie.getCookie('isAdmin') === '0');
+  return isNotAdmin;
 });
 
 </script>
@@ -54,7 +54,7 @@ const showLivreurView = computed(() => {
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Gestion Tournée
               </a>
-              <a href="/MesLivraisons"
+              <a  v-if="showLivreurView"  href="/MesLivraisons"
                 class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200">
                 Mes Livraisons
               </a>

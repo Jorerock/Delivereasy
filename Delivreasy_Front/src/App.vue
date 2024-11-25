@@ -16,7 +16,7 @@ import "./assets/main.css"
   <br/>
  <RouterView/>
  <br/>
- footer
+ 
 
 
 </template>
